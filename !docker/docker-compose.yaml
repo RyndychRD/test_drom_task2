@@ -1,0 +1,48 @@
+#syntax ver
+version: '3'
+
+services:
+  #Nginx container
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    image: auth-service/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ../.:/data/app.local
+      - phpsocket:/var/run/php-fpm
+    networks:
+      - service-network
+    depends_on:
+      - app
+
+  #PHP-FPM container
+  app:
+    build:
+      context: fpm
+      dockerfile: Dockerfile
+      args:
+        - IS_ADD_XDEBUG=false
+    image: jusan_equaring/php
+    volumes:
+      - ../.:/data/app.local
+      - phpsocket:/var/run/php-fpm
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - ./fpm/env
+    working_dir: /data/app.local
+    networks:
+      - service-network
+
+
+
+#Docker Networks
+networks:
+  service-network:
+    driver: bridge
+
+volumes:
+  phpsocket:

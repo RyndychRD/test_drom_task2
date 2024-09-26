@@ -1,0 +1,30 @@
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+LANG="en_US.UTF-8"
+
+DEBUG_MODE="true"
+ELASTIC_HOST=elasticsearch-es-http.dev.svc.cluster.local
+ELASTIC_PASS=ss09R45lq73AgMA9Y1NjmC23
+ELASTIC_PORT=9200
+ELASTIC_USER=elastic
+GAMES_PG_DB=oraora
+GAMES_PG_HOST="games-cnpg-rw.games-dev.svc.cluster.local"
+GAMES_PG_PASSWORD=Xr9WSuk2r1ubJLMQ
+GAMES_PG_USER=lotomatic_coly
+M_PDO_STRING="pgsql:host=db;dbname=postgres;port=5432;user=postgres;password=123456;"
+M_PG_STRING="host=postgresql.dev.svc.cluster.local dbname=webkkm_lotomatic port=5432 user=lotomatic password=lotomatic"
+OFFLINE_TIME_IN_MINUTES=4320
+ONLINE_TIME_IN_MINUTES=30
+PG_DB_LOGIN=postgres
+PG_DB_NAME=postgres
+PG_DB_PASSOWRD=123456
+REDIS_SENTINEL_HOST=redis-sentinel
+REDIS_SENTINEL_PORT=26379
+R_PDO_STRING="pgsql:host=db;dbname=postgres;port=5432;user=postgres;password=123456;"
+R_PG_STRING="host=kassor-proxy.kassor.svc.cluster.local dbname=kassor-phpdev port=6432 user=cashbox password=8MJr9CtYoUm2btc8wUsU"
+SESSION_LIVE_TIME=8
+REFRESH_LIVE_TIME_HOURS=72
+TARGET_MODE=rus.test
+TERMINAL_TYPE=tests
+USE_WHITE_LIST="false"
+SLEEP_TIME=20
+PHOTO_STORE_ABSOLUTE_PATH=D:\projects\qrInformer\!photos
