@@ -50,7 +50,7 @@ class CommentService
      */
     public function postComment(string $name, string $text): Comment
     {
-        $comment = new Comment($name, $text);
+        $comment = new Comment(name: $name, text: $text);
         $commentDto = new CommentDto($comment);
         $response = $this->client->postComment($commentDto->toJson());
         self::validateOneCommentFromResponse($response);
@@ -66,7 +66,7 @@ class CommentService
      */
     public function updateComment(int $id, ?string $name = null, ?string $text = null): Comment
     {
-        $comment = new Comment($name, $text);
+        $comment = new Comment($id, $name, $text);
         $commentDto = new CommentDto($comment);
         $response = $this->client->updateComment($id, $commentDto->toJson());
         self::validateOneCommentFromResponse($response);
