@@ -5,14 +5,14 @@ namespace Poman\TestDrom\Task2\model;
 class Comment
 {
     public function __construct(
-        private ?int $id=null,
-        private ?string $name=null,
-        private ?string $text=null,
+        private ?int    $id = null,
+        private ?string $name = null,
+        private ?string $text = null,
     )
     {
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -34,7 +34,7 @@ class Comment
         return $this;
     }
 
-    public function getText(): string
+    public function getText(): ?string
     {
         return $this->text;
     }

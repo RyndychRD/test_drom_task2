@@ -3,6 +3,7 @@
 namespace Poman\TestDrom\Task2\client;
 
 use CurlHandle;
+use Poman\TestDrom\Task2\throwable\CommentNotFound;
 use Poman\TestDrom\Task2\throwable\RequestFormatException;
 use Poman\TestDrom\Task2\throwable\ServiceError;
 
@@ -39,6 +40,7 @@ class CommentClient implements CommentClientInterface
     /**
      * @throws ServiceError
      * @throws RequestFormatException
+     * @throws CommentNotFound
      */
     private function parseResponse(string|bool $response, CurlHandle $curl)
     {
@@ -52,6 +54,9 @@ class CommentClient implements CommentClientInterface
         curl_close($curl);
         if ($http_status === 400) {
             throw new RequestFormatException($response);
+        }
+        if ($http_status === 404) {
+            throw new CommentNotFound($response);
         }
         if (str_starts_with($http_status, '2')) {
             return json_decode($response, true);
@@ -77,6 +82,7 @@ class CommentClient implements CommentClientInterface
     /**
      * @throws ServiceError
      * @throws RequestFormatException
+     * @throws CommentNotFound
      */
     public function updateComment(int $id, string $json, string $url = 'comment'): array
     {
