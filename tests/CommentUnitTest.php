@@ -5,6 +5,7 @@ use Poman\TestDrom\Task2\client\CommentClient;
 use Poman\TestDrom\Task2\client\CommentClientInterface;
 use Poman\TestDrom\Task2\model\Comment;
 use Poman\TestDrom\Task2\service\CommentService;
+use Poman\TestDrom\Task2\throwable\CommentNotFound;
 use Poman\TestDrom\Task2\throwable\RequestFormatException;
 use Poman\TestDrom\Task2\throwable\ResponseFormatException;
 use Poman\TestDrom\Task2\throwable\ServiceError;
@@ -120,7 +121,7 @@ final class CommentUnitTest extends TestCase
         $client->postComment('new name', 'new text');
     }
 
-    public function testUpdateComment()
+    public function testUpdateCommentOneField()
     {
         $response = [
             'id'   => 1,
@@ -130,7 +131,31 @@ final class CommentUnitTest extends TestCase
         $expected = new Comment(1, 'name1', 'text_updated');
         $this->httpClient->method('updateComment')->willReturn($response);
         $client = new CommentService($this->httpClient);
-        $this->assertEquals($expected, $client->updateComment(1, 'name1', 'text_updated'));
+        $this->assertEquals($expected, $client->updateComment(1, text: 'text_updated'));
+
+    }
+
+    public function testUpdateCommentAllFields()
+    {
+        $response = [
+            'id'   => 1,
+            'text' => 'text_updated',
+            'name' => 'name_updated',
+        ];
+        $expected = new Comment(1, 'name_updated', 'text_updated');
+        $this->httpClient->method('updateComment')->willReturn($response);
+        $client = new CommentService($this->httpClient);
+        $this->assertEquals($expected, $client->updateComment(1, 'name_updated', 'text_updated'));
+
+    }
+
+    public function testCommentToUpdateNotFound()
+    {
+
+        $this->httpClient->method('updateComment')->willThrowException(new CommentNotFound());
+        $this->expectException(CommentNotFound::class);
+        $client = new CommentService($this->httpClient);
+        $client->updateComment(1, 'name1', 'text1');
 
     }
 
