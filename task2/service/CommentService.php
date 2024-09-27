@@ -5,7 +5,9 @@ namespace Poman\TestDrom\Task2\service;
 use Poman\TestDrom\Task2\client\CommentClientInterface;
 use Poman\TestDrom\Task2\dto\CommentDto;
 use Poman\TestDrom\Task2\model\Comment;
+use Poman\TestDrom\Task2\throwable\RequestFormatException;
 use Poman\TestDrom\Task2\throwable\ResponseFormatException;
+use Poman\TestDrom\Task2\throwable\ServiceError;
 
 class CommentService
 {
@@ -16,6 +18,12 @@ class CommentService
         $this->client = $client;
     }
 
+
+    /**
+     * @throws ServiceError
+     * @throws RequestFormatException
+     * @throws ResponseFormatException
+     */
     public function getComments(): array
     {
         $response = $this->client->getComments();
@@ -34,6 +42,12 @@ class CommentService
         }
     }
 
+
+    /**
+     * @throws ServiceError
+     * @throws RequestFormatException
+     * @throws ResponseFormatException
+     */
     public function postComment(string $name, string $text): Comment
     {
         $comment = new Comment($name, $text);
@@ -44,6 +58,12 @@ class CommentService
         return $result;
     }
 
+
+    /**
+     * @throws ServiceError
+     * @throws RequestFormatException
+     * @throws ResponseFormatException
+     */
     public function updateComment(int $id, ?string $name = null, ?string $text = null): Comment
     {
         $comment = new Comment($name, $text);
