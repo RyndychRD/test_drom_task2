@@ -56,8 +56,8 @@ final class CommentUnitTest extends TestCase
         ];
         $expected = [
             new Comment(1, 'name1', 'text1'),
-            new Comment(2, 'name2', 'text2'),
             new Comment(3, 'name3', 'text3'),
+            new Comment(2, 'name2', 'text2'),
         ];
         $this->httpClient->method('getComments')->willReturn($response);
         $client = new CommentService($this->httpClient);
@@ -72,9 +72,6 @@ final class CommentUnitTest extends TestCase
                 'text_another_name' => 'text1',
                 'name'              => 'name1',
             ],
-        ];
-        $expected = [
-            new Comment(1, 'name1', 'text1'),
         ];
         $this->httpClient->method('getComments')->willReturn($response);
         $this->expectException(ResponseFormatException::class);
