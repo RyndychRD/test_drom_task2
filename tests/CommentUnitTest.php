@@ -5,7 +5,7 @@ use Poman\TestDrom\Task2\client\CommentClient;
 use Poman\TestDrom\Task2\client\CommentClientInterface;
 use Poman\TestDrom\Task2\model\Comment;
 use Poman\TestDrom\Task2\service\CommentService;
-use Poman\TestDrom\Task2\throwable\CommentNotFound;
+use Poman\TestDrom\Task2\throwable\NotFound;
 use Poman\TestDrom\Task2\throwable\RequestFormatException;
 use Poman\TestDrom\Task2\throwable\ResponseFormatException;
 use Poman\TestDrom\Task2\throwable\ServiceError;
@@ -149,8 +149,8 @@ final class CommentUnitTest extends TestCase
     public function testCommentToUpdateNotFound()
     {
 
-        $this->httpClient->method('updateComment')->willThrowException(new CommentNotFound());
-        $this->expectException(CommentNotFound::class);
+        $this->httpClient->method('updateComment')->willThrowException(new NotFound());
+        $this->expectException(NotFound::class);
         $client = new CommentService($this->httpClient);
         $client->updateComment(1, 'name1', 'text1');
 

@@ -5,7 +5,7 @@ namespace Poman\TestDrom\Task2\service;
 use Poman\TestDrom\Task2\client\CommentClientInterface;
 use Poman\TestDrom\Task2\dto\CommentDto;
 use Poman\TestDrom\Task2\model\Comment;
-use Poman\TestDrom\Task2\throwable\CommentNotFound;
+use Poman\TestDrom\Task2\throwable\NotFound;
 use Poman\TestDrom\Task2\throwable\RequestFormatException;
 use Poman\TestDrom\Task2\throwable\ResponseFormatException;
 use Poman\TestDrom\Task2\throwable\ServiceError;
@@ -64,7 +64,7 @@ class CommentService
      * @throws ServiceError
      * @throws RequestFormatException
      * @throws ResponseFormatException
-     * @throws CommentNotFound
+     * @throws NotFound
      */
     public function updateComment(int $id, ?string $name = null, ?string $text = null): Comment
     {

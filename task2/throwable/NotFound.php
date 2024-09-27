@@ -7,7 +7,7 @@ use Exception;
 /**
  * - Сервис вернул 404
  */
-class CommentNotFound extends Exception implements CommentServiceThrowable
+class NotFound extends Exception implements CommentServiceThrowable
 {
 
 }
