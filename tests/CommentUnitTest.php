@@ -109,16 +109,13 @@ final class CommentUnitTest extends TestCase
                 'name'              => 'name1',
             ],
         ];
-        $expected = [
-            new Comment(1, 'name1', 'text1'),
-        ];
         $this->httpClient->method('postComment')->willReturn($response);
         $this->expectException(ResponseFormatException::class);
         $client = new CommentService($this->httpClient);
         $client->postComment('new name', 'new text');
     }
 
-    public function testUpdateCommentOneField()
+    public function testUpdateCommentTextOnlyField()
     {
         $response = [
             'id'   => 1,
@@ -129,6 +126,20 @@ final class CommentUnitTest extends TestCase
         $this->httpClient->method('updateComment')->willReturn($response);
         $client = new CommentService($this->httpClient);
         $this->assertEquals($expected, $client->updateComment(1, text: 'text_updated'));
+
+    }
+
+    public function testUpdateCommentNameOnlyField()
+    {
+        $response = [
+            'id'   => 1,
+            'text' => 'text',
+            'name' => 'name_updated',
+        ];
+        $expected = new Comment(1, 'name_updated', 'text');
+        $this->httpClient->method('updateComment')->willReturn($response);
+        $client = new CommentService($this->httpClient);
+        $this->assertEquals($expected, $client->updateComment(1, name: 'name_updated'));
 
     }
 
@@ -165,16 +176,13 @@ final class CommentUnitTest extends TestCase
                 'name'              => 'name1',
             ],
         ];
-        $expected = [
-            new Comment(1, 'name1', 'text1'),
-        ];
         $this->httpClient->method('updateComment')->willReturn($response);
         $this->expectException(ResponseFormatException::class);
         $client = new CommentService($this->httpClient);
         $client->updateComment(1, 'new name', 'new text1');
     }
 
-    public function testUpdateCommentResponseFormatError()
+    public function testUpdateCommentRequestFormatError()
     {
         $this->httpClient->method('updateComment')->willThrowException(new RequestFormatException());
         $this->expectException(RequestFormatException::class);
