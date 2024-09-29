@@ -31,13 +31,13 @@ class CommentService
         $response = $this->client->getComments();
         $result = [];
         foreach ($response as $respComment) {
-            self::validateOneCommentFromResponse($respComment);
+            self::validateCommentFromResponse($respComment);
             $result[] = new Comment($respComment['id'], $respComment['name'], $respComment['text']);
         }
         return $result;
     }
 
-    private function validateOneCommentFromResponse(array $response): void
+    private function validateCommentFromResponse(array $response): void
     {
         if (!isset($response['id']) || !isset($response['name']) || !isset($response['text'])) {
             throw new ResponseFormatException();
@@ -59,7 +59,7 @@ class CommentService
         $comment = new Comment(name: $name, text: $text);
         $commentDto = new CommentDto($comment);
         $response = $this->client->postComment($commentDto->toJson());
-        self::validateOneCommentFromResponse($response);
+        self::validateCommentFromResponse($response);
         $result = new Comment($response['id'], $response['name'], $response['text']);
         return $result;
     }
@@ -81,7 +81,7 @@ class CommentService
         $comment = new Comment($id, $name, $text);
         $commentDto = new CommentDto($comment);
         $response = $this->client->updateComment($id, $commentDto->toJson());
-        self::validateOneCommentFromResponse($response);
+        self::validateCommentFromResponse($response);
         $result = new Comment($response['id'], $response['name'], $response['text']);
         return $result;
     }

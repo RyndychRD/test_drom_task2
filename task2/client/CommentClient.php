@@ -9,7 +9,7 @@ use Poman\TestDrom\Task2\throwable\ServiceError;
 
 class CommentClient implements CommentClientInterface
 {
-    // Можно вынести в .env, но для простоты не стал
+    // Можно вынести в .env, но для простоты не стал. Да и не так часто меняются URL у сервисов, чтобы тянуть лишнюю здесь зависимость
     const URL = 'http://example.com/';
 
     /**
