@@ -21,6 +21,7 @@ class CommentService
 
 
     /**
+     * Get all comments from service
      * @throws ServiceError
      * @throws RequestFormatException
      * @throws ResponseFormatException
@@ -45,9 +46,13 @@ class CommentService
 
 
     /**
-     * @throws ServiceError
+     * Post new comment to service
+     * @param string $name new comment name
+     * @param string $text new comment text
+     * @return Comment
      * @throws RequestFormatException
      * @throws ResponseFormatException
+     * @throws ServiceError
      */
     public function postComment(string $name, string $text): Comment
     {
@@ -61,10 +66,15 @@ class CommentService
 
 
     /**
-     * @throws ServiceError
+     * Update existing comment in service
+     * @param int $id comment id
+     * @param string|null $name new comment name. If null - will not change
+     * @param string|null $text new comment text. If null - will not change
+     * @return Comment
+     * @throws NotFound
      * @throws RequestFormatException
      * @throws ResponseFormatException
-     * @throws NotFound
+     * @throws ServiceError
      */
     public function updateComment(int $id, ?string $name = null, ?string $text = null): Comment
     {

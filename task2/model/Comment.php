@@ -2,6 +2,12 @@
 
 namespace Poman\TestDrom\Task2\model;
 
+/**
+ * Comment example. Represent comment by id, name, text
+ * @property $id comment id
+ * @property $name comment name
+ * @property $text comment text
+ */
 class Comment
 {
     public function __construct(
